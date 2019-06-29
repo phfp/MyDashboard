@@ -1,4 +1,4 @@
-# mydashboard
+# Mydashboard
 
 > A Vue.js project
 
