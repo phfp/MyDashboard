@@ -100,7 +100,7 @@ export default {
       copyTextarea.select();
       try {
           var successful = document.execCommand('copy');
-          alert('Código copiado!');
+          M.toast({html: 'Código copiado com sucessso!', classes: 'rounded'});
           this.cod_barra = null;
       } catch (err) {
           alert('Opa, Não conseguimos copiar o texto, é possivel que o seu navegador não tenha suporte, tente usar Crtl+C.');
