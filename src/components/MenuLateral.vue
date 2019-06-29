@@ -11,7 +11,7 @@
     </div></li>
 
     <li><a class="subheader">Ferramentas</a></li>
-    <li><router-link to="/codbarras">Gerar de barras</router-link></li>
+    <li><router-link to="/codbarras">Gerar de Barras</router-link></li>
     <li><router-link to="/visual">Visual Studio Code</router-link></li>
     <li><router-link to="/postman">Postman</router-link></li>
     <li><router-link to="/gitkraken">Gitkraken</router-link></li>
