@@ -21,7 +21,7 @@
     <li><div class="divider"></div></li>
     
     <li><a class="subheader">Tutoriais</a></li>
-    <li><router-link to="/laravel">Laravel</router-link></li>
+    <li><router-link to="/laravel">Laravel Franework</router-link></li>
     <li><router-link to="/cpp">C++</router-link></li>
     <li><router-link to="/javascript">Javascript</router-link></li>  
     </ul>    
