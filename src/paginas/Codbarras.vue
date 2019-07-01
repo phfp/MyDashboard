@@ -149,7 +149,7 @@ export default {
           this.cod_barra = '';
           this.preco_entrada = 0;
       } catch (err) {
-          alert('Opa, Não conseguimos copiar o texto, é possivel que o seu navegador não tenha suporte, tente usar Crtl+C.');
+          alert('Poxa, Não foi dessa vez... Tente usar Crtl+C :)');
       }
     }
   },
