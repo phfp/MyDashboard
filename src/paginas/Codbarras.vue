@@ -23,7 +23,7 @@
               <div class="card-action">
                 <div class="row">
                   <div class="input-field col s6">
-                    <the-mask v-model="barra" id="barra" :mask="['######']" />
+                    <the-mask v-model="barra" id="barra" :mask="['####']" />
                     <label class="active" for="barra"> Barra </label>
                   </div>
 
@@ -40,7 +40,7 @@
 
                 <div class="row">
                   <div class="col s12">
-                    <div v-if="barra && cod_barra && barra_cache===barra && preco_entrada===preco_entrada_cache" class="input-field inline">
+                    <div v-if="barra && cod_barra && barra==barra_aux && preco==preco_entrada" class="input-field inline">
                       <input v-model="cod_barra" ref="copiarbarra">                  
                       <span class="helper-text"><a v-on:click="copiar" class="btn waves-effect green"><i class="material-icons">content_copy</i> Copiar Código de Barra </a></span>
                     </div>
@@ -70,16 +70,14 @@ export default {
       s2:0,
       digito:0,
       cod_barra:'',
-      barra_cache:'',
       barra:'',
       preco:'',
       preco_entrada:'',
-      preco_entrada_cache:'0'   
     }
   },
   methods:{
     gerarCodBarras: function(){
-      
+
       this.preco = Math.round(this.preco_entrada*100);
 
       if(this.preco<10){
@@ -91,35 +89,26 @@ export default {
       else if(this.preco<1000){
          this.preco = "00" + this.preco;
       }
-      else if(this.preco<10000){
-         this.preco = "0" + this.preco;
+  
+      this.barra_aux = this.barra; 
+      this.barra_aux = parseInt(this.barra_aux,10);
+
+      if(this.barra_aux<10){
+        this.barra_aux = "000" + this.barra_aux + "00" ;
       }
-
-      if(this.barra.length < 6){
-
-        this.barra = parseInt(this.barra,10);
-
-        if(this.barra<10){
-          this.barra = "00000" + this.barra;
-        }
-        else if(this.barra<100){
-          this.barra = "0000" + this.barra;
-        }
-        else if(this.barra<1000){
-          this.barra = "000" + this.barra;
-        }
-        else if(this.barra<10000){
-          this.barra = "00" + this.barra;
-        }
-        else if(this.barra<100000){
-          this.barra = "0" + this.barra;
-        }
+      else if(this.barra_aux<100){
+        this.barra_aux = "00" + this.barra_aux + "00" ;
       }
+      else if(this.barra_aux<1000){
+        this.barra_aux = "0" + this.barra_aux + "00";
+      }
+      else if(this.barra_aux<10000){        
+        this.barra_aux = this.barra_aux + "00";
+      }
+      this.ean12 = '2' + this.barra_aux + this.preco;
 
-      this.preco_entrada_cache = this.preco_entrada;
-      this.barra_cache = this.barra;
-
-      this.ean12 = '2' + this.barra + this.preco;
+      this.preco = parseInt(this.preco,10)/100;
+      this.barra_aux = parseInt(this.barra_aux,10)/100;
 
       for(var i = 0; i < 12; i++){
           if(i % 2 === 0){
@@ -145,9 +134,6 @@ export default {
       try {
           var successful = document.execCommand('copy');
           M.toast({html: 'Código copiado com sucessso!', classes: 'green rounded'});
-          this.barra = '';
-          this.cod_barra = '';
-          this.preco_entrada = 0;
       } catch (err) {
           alert('Poxa, Não foi dessa vez... Tente usar Crtl+C :)');
       }
