@@ -1,29 +1,29 @@
 <template>
   <div id="MenuLteral">       
-    <ul id="slide-out" class="sidenav sidenav-fixed">
+    <ul id="slide-out" class="sidenav sidenav-fixed teal darken-4">
     <li><div class="user-view">
         <div class="background">
-        <img src="/static/imagens/img-capa.jpg">
         </div>
-        <a href="#"><img class="circle" src="static/imagens/img-perfil.jpg"></a>
-        <a href="#"><span class="white-text name">Paulo Henrique</span></a>
-        <a href="#"><span class="white-text email">phfp@mail.com</span></a>
+        <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.png"></router-link>
+        <a href="#"><span class="white-text name">User</span></a>
+        <a href="#"><span class="white-text email">user@email.com.br</span></a>
     </div></li>
 
-    <li><a class="subheader">Ferramentas</a></li>
-    <li><router-link to="/codbarras">Gerar de Barras</router-link></li>
-    <li><router-link to="/visual">Visual Studio Code</router-link></li>
-    <li><router-link to="/postman">Postman</router-link></li>
-    <li><router-link to="/gitkraken">Gitkraken</router-link></li>
-    <li><router-link to="/composer">Composer</router-link></li>
-    <li><router-link to="/artisan">Artisan</router-link></li>
-    
-    <li><div class="divider"></div></li>
-    
-    <li><a class="subheader">Tutoriais</a></li>
-    <li><router-link to="/laravel">Laravel Franework</router-link></li>
-    <li><router-link to="/cpp">C++</router-link></li>
-    <li><router-link to="/javascript">Javascript</router-link></li>  
+    <li><div class="divider teal darken-2"></div></li>
+
+    <li><router-link class="teal-text text-accent-3" to="/"><i class="material-icons">home</i>Home</router-link></li>
+
+    <li><div class="divider teal darken-2"></div></li>
+    <li><a class="subheader teal-text text-lighten">Ferramentas</a></li>
+    <li><router-link class="teal-text text-accent-3" to="/codbarras">Gerar de Barras</router-link></li>
+    <li><router-link class="teal-text text-accent-3" to="/digito">Cálculo do Dígito Verificador</router-link></li>
+
+    <li><div class="divider teal darken-2"></div></li>
+
+    <li><a class="subheader teal-text text-lighten">Documentos</a></li>
+    <li><router-link class="teal-text text-accent-3" to="#">Normas e Procedimantos</router-link></li>
+    <li><router-link class="teal-text text-accent-3" to="#">Tutoriais Úteis</router-link></li>
+
     </ul>    
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>

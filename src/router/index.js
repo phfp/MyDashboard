@@ -1,16 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Home from '@/paginas/Home'
 import Codbarras from '@/paginas/Codbarras'
-import Laravel from '@/paginas/Laravel'
-import Cpp from '@/paginas/Cpp'
-import Javascript from '@/paginas/Javascript'
-import Visual from '@/paginas/Visual'
-import Postman from '@/paginas/Postman'
-import Gitkraken from '@/paginas/Gitkraken'
-import Composer from '@/paginas/Composer'
-import Artisan from '@/paginas/Artisan'
+import Digito from '@/paginas/Digito'
+import Login from '@/paginas/Login'
+import CadastroUser from '@/paginas/CadastroUser'
+
 
 Vue.use(Router)
 
@@ -27,44 +22,19 @@ export default new Router({
       component: Codbarras
     },
     {
-      path: '/laravel',
-      name: 'Laravel',
-      component: Laravel
+      path: '/digito',
+      name: 'Digito',
+      component: Digito
     },
     {
-      path: '/cpp',
-      name: 'Cpp',
-      component: Cpp
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
-      path: '/javascript',
-      name: 'Javascript',
-      component: Javascript
-    },
-    {
-      path: '/visual',
-      name: 'Visual',
-      component: Visual
-    },
-    {
-      path: '/postman',
-      name: 'Postaman',
-      component: Postman
-    },
-    {
-      path: '/gitkraken',
-      name: 'Gitkraken',
-      component: Gitkraken
-    },
-    {
-      path: '/composer',
-      name: 'Composer',
-      component: Composer
-    },
-    {
-      path: '/artisan',
-      name: 'Artisan',
-      component: Artisan
+      path: '/cadastrouser',
+      name: 'Cadastrouser',
+      component: CadastroUser
     }
   ]
 })

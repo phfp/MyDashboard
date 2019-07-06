@@ -1,67 +1,49 @@
 <template>
-  <div id="codbarras">
-
-      <div class="row">       
-        <div class="col s3">
-          <menu-lateral></menu-lateral>
+  <pagina-layout>
+    <div class="container">
+      <div class="card grey lighten-5" id="card-id">  
+        <div class="card-content">
+          <span class="card-title">Código de Balança - EAN13</span>
+          <p class="grey-text">Informe a barra e o preço do produto</p>
         </div>
-
-        <div class="col s9">
-
+            
+        <div class="card-action">
           <div class="row">
-            <br><br><br><br><br>
+            <div class="input-field col s6">
+              <the-mask v-model="barra" id="barra" :mask="['####']" />
+              <label class="active" for="barra"> Barra </label>
+            </div>
+            <div class="input-field col s6">
+              <money suffix=" R$" v-model="preco_entrada" maxlength="9"></money>
+            </div>                  
           </div>
 
-          <div class="container">
-
-            <div class="card grey lighten-5">
-              <div class="card-content">
-                <span class="card-title">Código de Balança - EAN13</span>
-                <p class="grey-text">Informe a barra e o preço do produto</p>
-              </div>
-              
-              <div class="card-action">
-                <div class="row">
-                  <div class="input-field col s6">
-                    <the-mask v-model="barra" id="barra" :mask="['####']" />
-                    <label class="active" for="barra"> Barra </label>
-                  </div>
-
-                  <div class="input-field col s6">
-                    <money suffix=" R$" v-model="preco_entrada" maxlength="9"></money>
-                  </div>                  
-                </div>
-
-                <div class="row">
-                  <div class="col s12">
-                    <button v-if="barra" v-on:click="gerarCodBarras" class="btn waves-effect waves-light" type="submit" name="action">Gerar Código</button>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col s12">
-                    <div v-if="barra && cod_barra && barra==barra_aux && preco==preco_entrada" class="input-field inline">
-                      <input v-model="cod_barra" ref="copiarbarra">                  
-                      <span class="helper-text"><a v-on:click="copiar" class="btn waves-effect green"><i class="material-icons">content_copy</i> Copiar Código de Barra </a></span>
-                    </div>
-                  </div>                  
-                </div>
-              </div>
+          <div class="row">
+            <div class="col s12">
+              <button v-if="barra" v-on:click="gerarCodBarras" class="btn waves-effect waves-light" type="submit" name="action">Gerar Código</button>
             </div>
-          </div>           
-        </div>          
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <div v-if="barra && cod_barra && barra==barra_aux && preco==preco_entrada" class="input-field inline">
+                <input v-model="cod_barra" ref="copiarbarra">                  
+                <span class="helper-text"><a v-on:click="copiar" class="btn waves-effect green"><i class="material-icons">content_copy</i> Copiar Código de Barra </a></span>
+              </div>
+            </div>                  
+          </div>
+        </div>
       </div>
     </div>
+  </pagina-layout>
 </template>
 
 <script>
 
-import MenuLateral from '@/components/MenuLateral'
+import PaginaLayout from '@/components/layouts/PaginaLayout'
 import {Money} from 'v-money'
 
 export default {
-  methods: {
-  },
   name: 'Codbarras',
   data () {
     return {
@@ -140,9 +122,12 @@ export default {
     }
   },
   components:{
-    MenuLateral
+    PaginaLayout    
   }
 }
 </script>
 <style>
+  #card-id{
+    top: 100px;
+  }
 </style>
