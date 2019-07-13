@@ -5,9 +5,11 @@
         <div class="background">
         </div>
         <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.png"></router-link>
-        <a href="#"><span class="white-text name">User</span></a>
-        <a href="#"><span class="white-text email">user@email.com.br</span></a>
-    </div></li>
+        <a href="#" v-if="usuario"><span class="white-text name">{{usuario.name}}</span></a>
+        <a href="#" v-if="usuario"><span class="white-text email">{{usuario.email}}</span></a>
+    </div></li>  
+
+    <li><a href="#" v-on:click="sair" class="teal-text text-accent-3" to="/"><i class="material-icons">exit_to_app</i>Sair</a></li>  
 
     <li><div class="divider teal darken-2"></div></li>
 
@@ -32,14 +34,25 @@
 <script>
 export default {
   methods: {
+    sair(){
+      sessionStorage.clear();
+      this.$router.push('/login');
+    }
   },
   name: 'MenuLateral',
   data () {
     return {
+      usuario: null
     }
   },
   mounted(){
     M.AutoInit();
+  },
+  created(){
+    let usuarioAux = sessionStorage.getItem('usuario');
+    if(usuarioAux){
+      this.usuario = JSON.parse(usuarioAux)
+    }
   }
 }
 </script>

@@ -15,7 +15,7 @@
       <div class="input-field col s12">
         <button v-on:click="login()" class="btn waves-effect waves-light teal darken-3" type="submit" name="action">Entrar
           <i class="material-icons right">send</i>
-        </button>              
+        </button>             
       </div>
     </div>
   </login-layout>                             
@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       email:'',
-      password:''
+      password:'',
     }
   },
   methods:{
@@ -41,12 +41,27 @@ export default {
         password: this.password                
       })
       .then(response => {
-        console.log(response)
+        if(response.data.token){
+          //login com sucesso
+          sessionStorage.setItem('usuario',JSON.stringify(response.data));
+          this.$router.push('/');
+        }else if(response.data.status == false){
+          //login nao existe
+          alert('Login inválido!');
+        }else{
+          //erro de validacao
+          let erros = '';
+          for(let erro of Object.values(response.data)){
+            erros += erro +" ";
+          }
+          alert(erros);
+        }
       })    
       .catch(e => {
         console.log(e);
+        alert("Tente novamente mais tarde!");
       })  
-    }
+    },
   },
   components:{
     LoginLayout

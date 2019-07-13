@@ -27,7 +27,13 @@ export default {
   },
   components:{
       MenuLateral
-  }
+  },
+  beforeMount(){
+      let usuarioAux = sessionStorage.getItem('usuario');
+      if(!usuarioAux){
+        this.$router.push('/login');
+    }
+  },
 }
 </script>
 <style>

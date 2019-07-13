@@ -23,6 +23,12 @@ export default {
     return {
     }
   },
+  beforeCreate(){
+      let usuarioAux = sessionStorage.getItem('usuario');
+      if(usuarioAux){
+        this.$router.push('/');
+      }
+    },
   methods:{
   },
   components:{
