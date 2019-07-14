@@ -23,12 +23,6 @@ export default {
     return {
     }
   },
-  beforeCreate(){
-      let usuarioAux = sessionStorage.getItem('usuario');
-      if(usuarioAux){
-        this.$router.push('/');
-      }
-    },
   methods:{
   },
   components:{
@@ -58,5 +52,13 @@ export default {
     position: relative;
     top: 65px;
   }
+  
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px #004d40 inset !important;
+    -webkit-text-fill-color: white;
+}
 
 </style>

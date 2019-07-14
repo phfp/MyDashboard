@@ -7,9 +7,7 @@
         <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.png"></router-link>
         <a href="#" v-if="usuario"><span class="white-text name">{{usuario.name}}</span></a>
         <a href="#" v-if="usuario"><span class="white-text email">{{usuario.email}}</span></a>
-    </div></li>  
-
-    <li><a href="#" v-on:click="sair" class="teal-text text-accent-3" to="/"><i class="material-icons">exit_to_app</i>Sair</a></li>  
+    </div></li>
 
     <li><div class="divider teal darken-2"></div></li>
 
@@ -25,6 +23,16 @@
     <li><a class="subheader teal-text text-lighten">Documentos</a></li>
     <li><router-link class="teal-text text-accent-3" to="#">Normas e Procedimantos</router-link></li>
     <li><router-link class="teal-text text-accent-3" to="#">Tutoriais Úteis</router-link></li>
+    <li><router-link class="teal-text text-accent-3" to="#">Documentos Diversos</router-link></li>
+    <li><router-link class="teal-text text-accent-3" to="#">Imagens</router-link></li>
+
+    <li><div class="divider teal darken-2"></div></li>
+    <li><a class="subheader teal-text text-lighten">Gerenciamento de Usuários</a></li>
+    <li><router-link class="teal-text text-accent-3" to="/cadastrouser">Cadastrar Usuário</router-link></li>
+
+
+    <li><div class="divider teal darken-2"></div></li>
+    <li><a href="#" v-on:click="sair" class="teal-text text-accent-3" to="/"><i class="material-icons orange-text">exit_to_app</i>Sair</a></li>  
 
     </ul>    
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -37,6 +45,7 @@ export default {
     sair(){
       sessionStorage.clear();
       this.$router.push('/login');
+      this.usuario = null;
     }
   },
   name: 'MenuLateral',
@@ -62,5 +71,16 @@ export default {
 }
 .sidenav:hover{
   overflow: auto;
+}
+
+::-webkit-scrollbar{
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #00897b; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00796b; 
 }
 </style>
