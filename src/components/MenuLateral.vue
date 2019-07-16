@@ -40,31 +40,35 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    sair(){
-      sessionStorage.clear();
-      this.$router.push('/login');
-      this.usuario = null;
-    }
-  },
+
+import axios from 'axios'
+export default{
   name: 'MenuLateral',
   data () {
     return {
-      usuario: null
+      usuario: '',
+    }
+  },
+  methods:{
+    sair(){
+      this.$session.destroy()
+      this.$router.push('/login')
     }
   },
   mounted(){
     M.AutoInit();
   },
-  created(){
-    let usuarioAux = sessionStorage.getItem('usuario');
-    if(usuarioAux){
-      this.usuario = JSON.parse(usuarioAux)
+  beforeCreate(){
+    if(!this.$session.exists()){
+      this.$router.push('/login')
     }
+  },
+  created() {
+    this.usuario = this.$session.get('usuario');
   }
 }
 </script>
+
 <style>
 .sidenav{
   overflow: hidden;
