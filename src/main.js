@@ -3,13 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
 import money from 'v-money'
 import VueTheMask from 'vue-the-mask'
+import VueSession from 'vue-session'
 
+Vue.use(VueSession)
 Vue.use(money, {precision:2})
 Vue.use(VueTheMask)
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

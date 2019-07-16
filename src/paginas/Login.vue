@@ -35,8 +35,7 @@ export default {
     }
   },
   beforeCreate(){
-    let usuarioAux = sessionStorage.getItem('usuario');
-    if(usuarioAux){
+    if(this.$session.exists()){
       this.$router.push('/');
     }
   },
@@ -47,12 +46,12 @@ export default {
         password: this.password                
       })
       .then(response => {
-        if(response.data.token){
-          //login com sucesso
-          sessionStorage.setItem('usuario',JSON.stringify(response.data));
+        if(response.status === 200 && 'token' in response.data){
+          this.$session.start();
+          this.$session.set('usuario', response.data);
+          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token;
           this.$router.push('/');
         }else if(response.data.status == false){
-          //login nao existe
           alert('Login inválido!');
         }else{
           //erro de validacao
@@ -64,7 +63,6 @@ export default {
         }
       })    
       .catch(e => {
-        console.log(e);
         alert("Tente novamente mais tarde!");
       })  
     },
