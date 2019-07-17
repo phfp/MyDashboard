@@ -5,6 +5,7 @@ import Codbarras from '@/paginas/Codbarras'
 import Digito from '@/paginas/Digito'
 import Login from '@/paginas/Login'
 import CadastroUser from '@/paginas/CadastroUser'
+import Perfil from '@/paginas/Perfil'
 
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/cadastrouser',
       name: 'Cadastrouser',
       component: CadastroUser
+    },
+    {
+      path: '/perfil',
+      name: 'Perfil',
+      component: Perfil
     }
   ]
 })

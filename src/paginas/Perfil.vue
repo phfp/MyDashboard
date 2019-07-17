@@ -2,16 +2,29 @@
     <pagina-layout>
       <div class="container">
         <div class="row green-text" id="cadastro-form">
-          <h4>Cadastro de Usuário</h4><br>
+          <h4>Meu Perfil</h4><br>
+          <div class="row">
+          <div class="col s6">
+            <div class="card">
+              <div class="card-image small">
+                <img src="/static/imagens/img-perfil.jpg">
+                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+              </div>
+              <div class="card-content">
+                <p>Fazer upload da imagem</p>
+              </div>
+            </div>
+          </div>
+        </div>
           <div class="input-field col s6">
               <i class="material-icons prefix">account_circle</i>
               <input id="nome" type="text" class="validate grey-text" v-model="name">
-              <label for="nome">Nome</label>
+              <label class="active" for="nome">Nome</label>
           </div>
           <div class="input-field col s6">
               <i class="material-icons prefix">email</i>
               <input id="email" type="email" class="validate grey-text" v-model="email">
-              <label for="email">Email</label>
+              <label class="active" for="email">Email</label>
               <span class="helper-text" data-error="Ops, email inválido :(" data-success=""></span>
           </div>
           <div class="input-field col s6">
@@ -24,9 +37,9 @@
               <input id="password-check" type="password" class="validate grey-text" v-model="password_confirmation">
               <label for="password-check">Confirmar Senha</label>
           </div>
-          <div class="input-field col s12">
-              <button v-on:click="cadastro()" class="btn waves-effect waves-light green darken-3" type="submit" name="action">Cadastrar
-                  <i class="material-icons right">add_circle</i>
+          <div class="input-field col s6">
+              <button v-on:click="perfil()" class="btn waves-effect waves-light green darken-3" type="submit" name="action">Atualizar
+                  <i class="material-icons right">face</i>
               </button>
           </div>
         </div>
@@ -36,7 +49,6 @@
 
 <script>
 
-import LoginLayout from '@/components/layouts/LoginLayout'
 import PaginaLayout from '@/components/layouts/PaginaLayout'
 import axios from 'axios'
 
@@ -44,44 +56,39 @@ export default {
   name: 'CadastroUser',
   data () {
     return {
+        usuario:'',
         name:'',
         email:'',
         password:'',
         password_confirmation:''
     }
   },
+  created() {
+    if(this.$session.exists()){
+      this.usuario = this.$session.get('usuario');
+      this.name = this.usuario.name;
+      this.email = this.usuario.email;
+    }else{
+      this.$router.push('/login')
+    }
+  },
   methods:{
-    cadastro: function(){
-      axios.post('http://127.0.0.1:8000/api/cadastro',{
+    perfil: function(){
+      axios.put('http://127.0.0.1:8000/api/perfil',{
         name: this.name,
         email: this.email,
         password: this.password,
         password_confirmation: this.password_confirmation
-      })
+      },{"headers":{"authorization":"Bearer "+this.usuario.token}})
       .then(response => {
-        if(response.data.token){
-          M.toast({html: 'Cadastro realizado com sucesso!', classes: 'green rounded'});
-          this.name = this.email = this.password = this.password_confirmation = '';
-        }else if(response.data.status == false){
-          //login nao existe
-          alert('Erro no cadastro!');
-        }else{
-          //erro de validacao
-          let erros = '';
-          for(let erro of Object.values(response.data)){
-            erros += erro +" ";
-          }
-          alert(erros);
+        if(response.data){
+          M.toast({html: 'Atualização realizada com sucesso!', classes: 'green rounded'});
+          console.log(response.data);
         }
       })    
-      .catch(e => {
-        console.log(e);
-        alert("Tente novamente mais tarde!");
-      })  
     }
   },
   components:{
-    LoginLayout,
     PaginaLayout
   }
 }
@@ -89,7 +96,7 @@ export default {
 <style>
   #cadastro-form{
       position: relative;
-      top: 130px
+      top: 10px;
   }
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
@@ -97,5 +104,8 @@ export default {
   input:-webkit-autofill:active  {
     box-shadow: 0 0 0 30px white inset !important;
     -webkit-text-fill-color: grey;
+}
+body {
+    overflow-x: hidden;    
 }
 </style>

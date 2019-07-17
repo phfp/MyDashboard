@@ -4,7 +4,7 @@
     <li><div class="user-view">
         <div class="background">
         </div>
-        <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.png"></router-link>
+        <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.jpg"></router-link>
         <a href="#" v-if="usuario"><span class="white-text name">{{usuario.name}}</span></a>
         <a href="#" v-if="usuario"><span class="white-text email">{{usuario.email}}</span></a>
     </div></li>
@@ -28,6 +28,7 @@
 
     <li><div class="divider teal darken-2"></div></li>
     <li><a class="subheader teal-text text-lighten">Gerenciamento de Usuários</a></li>
+    <li><router-link class="teal-text text-accent-3" to="/perfil">Meu Perfil</router-link></li>
     <li><router-link class="teal-text text-accent-3" to="/cadastrouser">Cadastrar Usuário</router-link></li>
 
 
