@@ -4,7 +4,7 @@
     <li><div class="user-view">
         <div class="background">
         </div>
-        <router-link to="/"><img class="circle" src="/static/imagens/img-perfil.jpg"></router-link>
+        <router-link to="/"><img class="circle" v-bind:src=usuario.imagem></router-link>
         <a href="#" v-if="usuario"><span class="white-text name">{{usuario.name}}</span></a>
         <a href="#" v-if="usuario"><span class="white-text email">{{usuario.email}}</span></a>
     </div></li>

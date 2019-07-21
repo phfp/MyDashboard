@@ -2,18 +2,24 @@
     <pagina-layout>
       <div class="container">
         <div class="row green-text" id="cadastro-form">
-          <h4>Meu Perfil</h4><br>
+          <h4 class="orange-text text-darken-3">Meu Perfil</h4><br>
+          <div class="divider grey"></div><br>
           <div class="row">
           <div class="col s6">
             <div class="card">
               <div class="card-image small">
-                <img src="/static/imagens/img-perfil.jpg">
-                <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-              </div>
-              <div class="card-content">
-                <p>Fazer upload da imagem</p>
+                <img v-bind:src="usuario.imagem">
               </div>
             </div>
+            <div class="file-field input-field">
+                  <div class="btn waves-effect waves-light green">
+                    <span><i class="material-icons">add</i></span>
+                    <input type="file" v-on:change="salvaImagem">
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" placeholder="Upload de uma imagem" type="text">
+                  </div>
+                </div>
           </div>
         </div>
           <div class="input-field col s6">
@@ -60,7 +66,8 @@ export default {
         name:'',
         email:'',
         password:'',
-        password_confirmation:''
+        password_confirmation:'',
+        imagem: ''
     }
   },
   created() {
@@ -73,19 +80,46 @@ export default {
     }
   },
   methods:{
+    salvaImagem: function(e){
+      let arquivo = e.target.files || e.dataTransfer.files;
+      if(!arquivo.length){
+        return;
+      }
+
+      let reader = new FileReader();
+
+      reader.onloadend = (e) => {
+        this.imagem = e.target.result;
+      };
+
+      reader.readAsDataURL(arquivo[0]);
+    },
     perfil: function(){
       axios.put('http://127.0.0.1:8000/api/perfil',{
         name: this.name,
         email: this.email,
+        imagem: this.imagem,
         password: this.password,
         password_confirmation: this.password_confirmation
       },{"headers":{"authorization":"Bearer "+this.usuario.token}})
       .then(response => {
-        if(response.data){
-          M.toast({html: 'Atualização realizada com sucesso!', classes: 'green rounded'});
+        if(response.data.token){
           console.log(response.data);
+          this.usuario = response.data;
+          this.$session.set('usuario', response.data);
+          M.toast({html: 'Atualização realizada com sucesso!', classes: 'green rounded'});
+        }else{
+          console.log('Erros de validação!');
+          let erros = '';
+          for(let erro of Object.values(response.data)){
+            erros += erro +" ";
+          }
+          alert(erros);
         }
-      })    
+      })
+      .catch(e => {
+        alert("Tente novamente mais tarde!");
+      })   
     }
   },
   components:{
